@@ -10,38 +10,45 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Home from "./pages/Home";
 
 function MainApp() {
   const { token, role, logout } = useContext(AuthContext);
 
-  if (!token) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-primary">
-        <Login />
-        <Register />
-      </div>
-    );
-  }
-
   return (
     <Router>
-      <div className="min-h-screen flex flex-col items-center justify-center bg-primary text-white">
-        <h1 className="text-4xl font-bold mb-4">Welcome, {role}</h1>
+      <div>
         <Routes>
-          {role === "admin" ? (
-            <Route path="/dashboard" element={<AdminDashboard />} />
-          ) : (
-            <Route path="/dashboard" element={<UserDashboard />} />
+          {/* Public routes */}
+          {!token && (
+            <>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<Home/>} />
+            </>
           )}
-          {/* Redirect any other route to dashboard */}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+
+          {/* Protected routes */}
+          {token && (
+            <>
+              <Route
+                path="/dashboard"
+                element={
+                  role === "admin" ? <AdminDashboard /> : <UserDashboard />
+                }
+              />
+              <Route path="*" element={<Navigate to="/dashboard" />} />
+            </>
+          )}
         </Routes>
-        <button
-          className="mt-4 bg-secondary px-4 py-2 rounded"
-          onClick={logout}
-        >
-          Logout
-        </button>
+        {token && (
+          <button
+            className="mt-4 bg-secondary px-4 py-2 rounded"
+            onClick={logout}
+          >
+            Logout
+          </button>
+        )}
       </div>
     </Router>
   );
