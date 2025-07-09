@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(cors({
-  origin: "https://role-based-admin-panel-delta.vercel.app",
+  origin: ["https://role-based-admin-panel-delta.vercel.app","http://localhost:5173"],
   credentials: true
 }));
 app.use(express.json());
@@ -26,3 +26,7 @@ app.use("/api/admin", adminRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+app.get("/", (req, res) => {
+  res.send("API is running!");
+});
