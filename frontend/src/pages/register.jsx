@@ -18,7 +18,7 @@ export default function Register() {
 
     try {
       console.log("Registration attempt:", { username, email });
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await axios.post(import.meta.env.VITE_API_URL + "/api/auth/register", {
         username,
         password,
         email,

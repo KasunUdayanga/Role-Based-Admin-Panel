@@ -19,7 +19,7 @@ export default function AdminDashboard() {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/admin/users", {
+      const res = await axios.get(import.meta.env.VITE_API_URL + "/api/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -55,7 +55,7 @@ export default function AdminDashboard() {
     setActionLoading(true);
     try {
       await axios.delete(
-        `http://localhost:5000/api/admin/users/${selectedUser._id}`,
+        import.meta.env.VITE_API_URL + `/api/admin/users/${selectedUser._id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/admin/users/${selectedUser._id}/role`,
+        import.meta.env.VITE_API_URL + `/api/admin/users/${selectedUser._id}/role`,
         { role: newRole },
         { headers: { Authorization: `Bearer ${token}` } }
       );

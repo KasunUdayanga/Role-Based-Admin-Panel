@@ -24,7 +24,7 @@ export default function UserDashboard() {
       try {
         // Get all users
         const usersResponse = await axios.get(
-          "http://localhost:5000/api/users/users",
+          import.meta.env.VITE_API_URL + "/api/users/users",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -69,7 +69,7 @@ export default function UserDashboard() {
       }
 
       const response = await axios.put(
-        "http://localhost:5000/api/users/me",
+        import.meta.env.VITE_API_URL + "/api/users/me",
         updateData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
