@@ -100,22 +100,22 @@ A full-stack MERN application implementing role-based access control with separa
    npm install
    ```
 
-3. Create a `.env` file (if needed for custom API URL):
-
-   ```
-   VITE_API_URL=http://localhost:5000/api
-   ```
-
-4. Start the development server:
+3. Start the development server:
 
    ```
    npm run dev
    ```
 
-5. For production build:
-   ```
-   npm run build
-   ```
+
+
+## Live Demo
+
+[Live Demo on Vercel](https://role-based-admin-panel-delta.vercel.app/)
+
+**Admin Login:**
+
+- Username: `kasun`
+- Password: `123456789`
 
 ## Usage
 
@@ -140,7 +140,6 @@ When logged in as a regular user:
 
 - View and edit your profile information
 - View a list of all other users in the system
-
 
 ## License
 
