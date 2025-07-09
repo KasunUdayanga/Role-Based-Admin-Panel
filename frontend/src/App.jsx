@@ -1,7 +1,15 @@
 import { useContext } from "react";
 import { AuthContext, AuthProvider } from "./context/AuthContext";
-import Login from "./pages/Login";
+import Login from "./pages/login";
 import Register from "./pages/register";
+import AdminDashboard from "./pages/AdminDashboard";
+import UserDashboard from "./pages/UserDashboard";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 function MainApp() {
   const { token, role, logout } = useContext(AuthContext);
@@ -16,19 +24,26 @@ function MainApp() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-primary text-white">
-      <h1 className="text-4xl font-bold mb-4">Welcome, {role}</h1>
-      {role === "admin" ? (
-        <div className="bg-secondary p-4 rounded">Admin Dashboard</div>
-      ) : (
-        <div className="bg-blue-200 text-blue-900 p-4 rounded">
-          User Dashboard
-        </div>
-      )}
-      <button className="mt-4 bg-secondary px-4 py-2 rounded" onClick={logout}>
-        Logout
-      </button>
-    </div>
+    <Router>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-primary text-white">
+        <h1 className="text-4xl font-bold mb-4">Welcome, {role}</h1>
+        <Routes>
+          {role === "admin" ? (
+            <Route path="/dashboard" element={<AdminDashboard />} />
+          ) : (
+            <Route path="/dashboard" element={<UserDashboard />} />
+          )}
+          {/* Redirect any other route to dashboard */}
+          <Route path="*" element={<Navigate to="/dashboard" />} />
+        </Routes>
+        <button
+          className="mt-4 bg-secondary px-4 py-2 rounded"
+          onClick={logout}
+        >
+          Logout
+        </button>
+      </div>
+    </Router>
   );
 }
 
